@@ -14,8 +14,8 @@ public:
 	~Library_Manager();
 	Library_Manager();
 
-	bool					borrowBook(std::string ISBN, std::string id);
-	bool					returnBook(std::string ISBN, std::string id);
+	bool					borrowBook(const std::string ISBN, const std::string borrower_id);
+	bool					returnBook(const std::string ISBN, const std::string borrower_id);
 
 	bool					addBook(const std::string title, const std::string author, const long ISBN);
 	bool					removeBook(const long ISBN);
