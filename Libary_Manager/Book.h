@@ -38,6 +38,7 @@ private:
 	std::string					author;
 	long						ISBN;
 	bool						available;
+	int							available_copies;
 	int							num_of_copies;
 	std::list<Borrower*>		borrowers;				// all users that borrowed the book
 	std::queue<Borrower*>		waiting_list;			// users waiting for the book

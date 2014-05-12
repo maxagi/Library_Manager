@@ -14,6 +14,9 @@ public:
 	~Library_Manager();
 	Library_Manager();
 
+	bool					borrowBook(std::string ISBN, std::string id);
+	bool					returnBook(std::string ISBN, std::string id);
+
 	bool					addBook(const std::string title, const std::string author, const long ISBN);
 	bool					removeBook(const long ISBN);
 	std::list<Book&>		findBook_ByTitle(const std::string title)		const;
@@ -27,8 +30,7 @@ public:
 	bool					removeBorrower(const long &id);
 	Borrower&				findBorrower_ById(const long id)				const;
 	std::list<Borrower&>	findBorrower_ByName(const std::string name)		const;
-	void					reportOnAllBorrowers()const;
-
+	void					reportOnAllBorrowers()							const;
 
 	//for debugging only:
 	void					printAllBorrowers();

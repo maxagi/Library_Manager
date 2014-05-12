@@ -1,5 +1,5 @@
 
-#include<list>
+#include<map>
 
 class Book;
 
@@ -12,10 +12,12 @@ public:
 	void addBook(const Book & book);
 	void removeBook(const Book & book);
 
+
 	/*
 	more functions
 	*/
 
+
 private:
-	std::list<Book> books;
+	std::map<Book,unsigned long> books; // book-->ISBN
 };
