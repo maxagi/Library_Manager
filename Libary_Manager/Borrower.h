@@ -5,7 +5,7 @@
 class Borrower{
 public:
 	~Borrower(){	/*needs to be empty */ }
-	Borrower(const std::string name) :name(name), id(next_id++){}	// need to initialize next_id in .cpp file !
+	Borrower(const std::string name) :name(name), id(next_id++){}	// need to initialize next_id in .cpp file ! like this: unsigned int Borrower::next_id =1
 
 	std::string			getName()				const			{ return name; }
 	void				setName(const std::string val)			{ name = val; }

@@ -1,18 +1,19 @@
 
 #include "Books_Container.h"
 #include "Borrowers_Container.h"
+#include "Borrower.h"
+
 #include <list>
 #include <string>
 
 class Book;
-class Borrower;
 
 class Library_Manager{
 
 
 public:
-	~Library_Manager();
-	Library_Manager();
+	~Library_Manager(){ /*	should be empty!!	*/ }
+	Library_Manager(){}
 
 	bool					borrowBook(const std::string ISBN, const unsigned int	borrower_id);
 	bool					returnBook(const std::string ISBN, const unsigned int	borrower_id);

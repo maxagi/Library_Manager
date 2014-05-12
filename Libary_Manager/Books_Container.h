@@ -6,8 +6,8 @@ class Book;
 class Books_Container{
 
 public:
-	~Books_Container();
-	Books_Container();
+	~Books_Container(){/*should NOT be empty!!*/ }
+	Books_Container(){}
 
 	void addBook(const Book & book);
 	void removeBook(const Book & book);

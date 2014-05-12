@@ -71,6 +71,7 @@
     <ClInclude Include="Library_Manager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Library_Manager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

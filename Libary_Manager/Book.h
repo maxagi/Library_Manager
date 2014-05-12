@@ -5,7 +5,7 @@
 class Borrower;
 class Book{
 public:
-	~Book();												
+	~Book(){	/*should be empty!!*/	}
 	Book(const std::string _title, const  std::string _author, const unsigned long _ISBN);
 	Book(const Book & other );									
 	Book & operator=(const Book & other);								
