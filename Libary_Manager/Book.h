@@ -6,12 +6,12 @@ class Borrower;
 class Book{
 public:
 	~Book();												
-	Book(const std::string _title,const  std::string _author,const long _ISBN);		
+	Book(const std::string _title, const  std::string _author, const unsigned long _ISBN);
 	Book(const Book & other );									
 	Book & operator=(const Book & other);								
 
 
-	long						getISBN() const					{ return ISBN; }
+	unsigned long				getISBN() const					{ return ISBN; }
 
 	std::string					getTitle() const				{ return title; }
 	void						setTitle(std::string val)		{ title = val; }
@@ -36,7 +36,7 @@ public:
 private:
 	std::string					title;
 	std::string					author;
-	long						ISBN;
+	unsigned long						ISBN;
 	bool						available;
 	int							available_copies;
 	int							num_of_copies;
