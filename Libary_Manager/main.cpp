@@ -14,9 +14,11 @@ int main(){
 	Books_Container books;
 	books.addBook(Book("c++", "yossi", 123));
 	books.addBook(Book("c", "yossi", 1234));
+	books.addBook(Book("c++", "someone else", 1234567));
 	Book *found = books.findByISBN(123);
 	
 	list<Book*const>  booksByYossi = books.findByAuthor("yossi");
+	list<Book*const>  booksOnCpp = books.findByTitle("c++");
 
 
 	int x;
