@@ -1,3 +1,7 @@
+#ifndef BOOK_H
+#define BOOK_H
+
+
 #include <string>
 #include <list>
 #include <stack>
@@ -6,8 +10,11 @@ class Borrower;
 class Book{
 public:
 	~Book(){	/*should be empty!!*/	}
-	Book(const std::string _title, const  std::string _author, const unsigned long _ISBN);
-	Book(const Book & other );									
+	Book(const std::string _title, const  std::string _author, const unsigned long _ISBN):
+		title(_title), author(_author), ISBN(_ISBN), available(true), available_copies(1), num_of_copies(1){}
+
+	//Book(const Book & other){}
+
 	Book & operator=(const Book & other);								
 
 
@@ -36,7 +43,7 @@ public:
 private:
 	std::string					title;
 	std::string					author;
-	unsigned long						ISBN;
+	unsigned long				ISBN;
 	bool						available;
 	int							available_copies;
 	int							num_of_copies;
@@ -44,3 +51,4 @@ private:
 	std::queue<Borrower*>		waiting_list;			// users waiting for the book
 
 };
+#endif

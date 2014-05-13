@@ -1,7 +1,7 @@
 
 #include<map>
+#include"book.h"
 
-class Book;
 
 class Books_Container{
 
@@ -9,8 +9,18 @@ public:
 	~Books_Container(){/*should NOT be empty!!*/ }
 	Books_Container(){}
 
-	void addBook(const Book & book);
-	void removeBook(const Book & book);
+	bool addBook(Book  book){
+		return (books.insert(std::pair<unsigned long, Book>(book.getISBN(), book))).second;
+	}
+
+	void removeBook(Book  book){
+		books.erase(book.getISBN());
+	}
+
+	Book findByISBN(unsigned long isbn){
+		//return books[isbn];
+	}
+	
 
 
 	/*
@@ -19,5 +29,6 @@ public:
 
 
 private:
-	std::map<Book,unsigned long> books; // book-->ISBN
+	std::map<unsigned long ,Book> books; // book-->ISBN
 };
+
