@@ -1,6 +1,9 @@
 #include "Books_Container.h"
 using namespace std;
 
+typedef map<unsigned long, Book>::iterator			books_iter;
+typedef map<unsigned long, Book>::const_iterator	books_citer;
+
 bool	Books_Container::addBook(Book  book){
 	return (books.insert(std::pair<unsigned long, Book>(book.getISBN(), book))).second;
 }
@@ -8,10 +11,11 @@ bool	Books_Container::addBook(Book  book){
 
 static std::list<Book*const > findBookByString(map<unsigned long, Book> &books_map, const string text, const string type){
 	list<Book*const> results;
-	map<unsigned long, Book>::iterator iter = books_map.begin();
+	books_iter iter = books_map.begin();
 
 	while (iter != books_map.end())
 	{
+
 		if (type == "title"){
 			if (iter->second.getTitle() == text)
 				results.push_back(&iter->second);
@@ -28,7 +32,7 @@ static std::list<Book*const > findBookByString(map<unsigned long, Book> &books_m
 
 
 Book* const   Books_Container::findByISBN(const unsigned long isbn)		 {
-	map<unsigned long, Book>::iterator iter = books.find(isbn);
+	books_iter iter = books.find(isbn);
 	return iter == books.cend() ? 0 : &iter->second;
 }
 
@@ -42,3 +46,14 @@ std::list<Book*const >	Books_Container::findByAuthor(const std::string author) {
 	return findBookByString(books, author, "author");
 }
 
+std::list<Book*const >	Books_Container::getBooksList(){
+	list<Book*const> result;
+	books_iter iter = books.begin();
+
+	while (iter != books.end())
+	{
+		result.push_back(&iter->second);
+		iter++;
+	}
+	return result;
+}

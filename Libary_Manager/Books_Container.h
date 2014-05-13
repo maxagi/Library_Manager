@@ -15,11 +15,7 @@ public:
 	Book*const 				findByISBN(const unsigned long isbn)  ;
 	std::list<Book*const >	findByTitle(const std::string title);
 	std::list<Book*const >	findByAuthor(const std::string author);
-
-	/*
-	more functions
-	*/
-
+	std::list<Book*const >	getBooksList();			//returns a list of all books 
 
 private:
 	std::map<unsigned long, Book> books; 
