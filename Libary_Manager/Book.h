@@ -14,8 +14,7 @@ public:
 		title(_title), author(_author), ISBN(_ISBN), available(true), available_copies(1), num_of_copies(1){}
 
 	//Book(const Book & other){}					<--	use deafault implementation
-
-	Book & operator=(const Book & other);								
+	//Book & operator=(const Book & other);			<--	use deafault implementation						
 
 
 	unsigned long				getISBN() const					{ return ISBN; }

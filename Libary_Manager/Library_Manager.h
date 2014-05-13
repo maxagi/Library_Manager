@@ -20,9 +20,9 @@ public:
 
 	bool					addBook(const std::string title, const std::string author, const long ISBN);
 	bool					removeBook(const long ISBN);
-	std::list<Book&>		findBook_ByTitle(const std::string title)		const;
-	std::list<Book&>		findBook_ByAuthor(const std::string author)		const;
-	std::list<Book&>		findBook_ByISBN(const long ISBN)				const;
+	std::list<Book*>		findBook_ByTitle(const std::string title)		const;
+	std::list<Book*>		findBook_ByAuthor(const std::string author)		const;
+	Book*					findBook_ByISBN(const long ISBN)				const;
 	void					reportBooksStatus(const bool status)			const;
 
 
