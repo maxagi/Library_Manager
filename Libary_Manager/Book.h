@@ -13,7 +13,7 @@ public:
 	Book(const std::string _title, const  std::string _author, const unsigned long _ISBN):
 		title(_title), author(_author), ISBN(_ISBN), available(true), available_copies(1), num_of_copies(1){}
 
-	//Book(const Book & other){}
+	//Book(const Book & other){}					<--	use deafault implementation
 
 	Book & operator=(const Book & other);								
 

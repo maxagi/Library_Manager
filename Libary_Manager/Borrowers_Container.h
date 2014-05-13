@@ -6,7 +6,7 @@ class Borrower;
 class Borrowers_Container{
 
 public:
-	~Borrowers_Container(){ /*	should NOT be empty!!	*/ }
+	~Borrowers_Container(){ /*	should  be empty!!	*/ }
 	Borrowers_Container(){}
 
 	void addBorrower(const Borrower & b);

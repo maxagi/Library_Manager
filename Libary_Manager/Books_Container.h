@@ -1,4 +1,4 @@
-
+#include<list>
 #include<map>
 #include"book.h"
 
@@ -6,22 +6,15 @@
 class Books_Container{
 
 public:
-	~Books_Container(){/*should NOT be empty!!*/ }
+	~Books_Container(){/*should be empty!!*/ }
 	Books_Container(){}
 
-	bool addBook(Book  book){
-		return (books.insert(std::pair<unsigned long, Book>(book.getISBN(), book))).second;
-	}
+	bool				addBook(Book  book);	//return true if added , false if book with same isbn exists
+	void				removeBook(Book  book)	{books.erase(book.getISBN());}
 
-	void removeBook(Book  book){
-		books.erase(book.getISBN());
-	}
-
-	Book findByISBN(unsigned long isbn){
-		//return books[isbn];
-	}
-	
-
+	Book				findByISBN(const unsigned long isbn);
+	std::list<Book*>	findByTitle(const std::string title);
+	std::list<Book*>	findByAuthor(const std::string author);
 
 	/*
 	more functions
@@ -29,6 +22,5 @@ public:
 
 
 private:
-	std::map<unsigned long ,Book> books; // book-->ISBN
+	std::map<unsigned long, Book> books; // book-->ISBN
 };
-
