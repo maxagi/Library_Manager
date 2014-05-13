@@ -16,7 +16,7 @@ int main(){
 	books.addBook(Book("c", "yossi", 1234));
 	Book *found = books.findByISBN(123);
 	
-	list<Book*>  booksByYossi = books.findByAuthor("yossi");
+	list<Book*const>  booksByYossi = books.findByAuthor("yossi");
 
 
 	int x;
