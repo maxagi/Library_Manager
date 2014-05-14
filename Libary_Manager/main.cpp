@@ -13,6 +13,7 @@ int main(){
 	manager.addBorrower("husam");
 	manager.addBorrower("yossi");
 
+
 	manager.addBook("c++", "yossi", 123);
 	manager.addBook("c++", "yossi", 123);
 	manager.addBook("c++", "david", 222);
@@ -20,10 +21,14 @@ int main(){
 	manager.addBook("kipa aduma ba yaar", "moshe cohen", 123456789);
 	manager.reportBooksStatus();
 
+	manager.borrowBook(123, 1);
+	manager.borrowBook(123, 2);
+	manager.borrowBook(123, 3);
+	manager.returnBook(123, 1);
+	manager.returnBook(123, 2);
+
 	list<Book*const > yossiBooks = manager.findBook_ByAuthor("yossi");
 
-	manager.removeBook(123);
-	manager.removeBook(12345);
 	
 	/*
 	Books_Container books;
