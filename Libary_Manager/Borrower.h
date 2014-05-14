@@ -1,3 +1,6 @@
+#ifndef BORROWER_H
+#define BORROWER_H
+
 #include <string>
 #include <list>
 #include "book.h"
@@ -13,7 +16,7 @@ public:
 	std::list<Book*>	getBorrowedBooks()		const 			{ return borrowed_books; }
 	int					getBorrowedBooksSize()	const			{ return borrowed_books.size(); }	 // i think we will not need to use it ever.
 
-
+	bool				hasBooks()				const			{ return borrowed_books.size() > 0; }
 	void				addToBorrowed(Book*const  book)			{ borrowed_books.push_back(book); }
 	void				removeFromBorrowed(Book*const  book)	{ borrowed_books.remove(book); }
 
@@ -28,3 +31,5 @@ private:
 	unsigned int  id;
 	std::list <Book*> borrowed_books;
 };
+
+#endif 

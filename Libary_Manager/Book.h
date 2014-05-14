@@ -29,8 +29,8 @@ public:
 	void						setAvailable(bool val)			{ available = val; }
 
 	int							getNum_of_copies() const		{ return num_of_copies; }
-	void						increaseNum_of_copies(int val)	{ ++num_of_copies; }
-	void						decreaseNum_of_copies(int val)	{ ++num_of_copies; }
+	void						increaseNum_of_copies()			{ ++num_of_copies; }
+	void						decreaseNum_of_copies()			{ --num_of_copies; }
 
 	const std::list<Borrower*>	getBorrowers() const			{ return borrowers; }
 	void						addBorrower(Borrower* const b);

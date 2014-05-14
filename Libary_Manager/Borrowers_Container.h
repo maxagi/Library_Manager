@@ -1,7 +1,9 @@
-
+#include "Borrower.h"
+#include<map>
 #include<list>
+#include <string>
 
-class Borrower;
+
 
 class Borrowers_Container{
 
@@ -9,14 +11,15 @@ public:
 	~Borrowers_Container(){ /*	should  be empty!!	*/ }
 	Borrowers_Container(){}
 
-	void addBorrower(const Borrower & b);
-	void removeBorrower(const Borrower & b);
+	bool			addBorrower(const Borrower & borrower);
+	bool 			removeBorrower(const Borrower & borrower){ return borrowers.erase(borrower.getId()) == 1; }
 
-	/*
-	more functions
-	*/
+	Borrower*const 	findByID(const unsigned int id);
+
+	std::list<Borrower*const>	findByName(const std::string name);
+	std::list<Borrower*const>	getAllBorrowes();
 
 private:
-	std::list<Borrower> borrowers;
+	std::map<unsigned int,Borrower> borrowers;
 };
 

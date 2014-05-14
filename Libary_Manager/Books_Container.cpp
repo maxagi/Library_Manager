@@ -4,10 +4,11 @@ using namespace std;
 typedef map<unsigned long, Book>::iterator			books_iter;
 typedef map<unsigned long, Book>::const_iterator	books_citer;
 
-bool	Books_Container::addBook(Book  book){
+
+
+bool Books_Container::addBook(Book  book){
 	return (books.insert(std::pair<unsigned long, Book>(book.getISBN(), book))).second;
 }
-
 
 static std::list<Book*const > findBookByString(map<unsigned long, Book> &books_map, const string text, const string type){
 	list<Book*const> results;
@@ -46,14 +47,12 @@ std::list<Book*const >	Books_Container::findByAuthor(const std::string author) {
 	return findBookByString(books, author, "author");
 }
 
-std::list<Book*const >	Books_Container::getBooksList(){
-	list<Book*const> result;
-	books_iter iter = books.begin();
+std::list<Book*const >	Books_Container::getAllBooks(){
+	std::list<Book*const> result;
 
-	while (iter != books.end())
-	{
+	for (books_iter iter = books.begin(); iter != books.end(); ++iter) {
 		result.push_back(&iter->second);
-		iter++;
 	}
+
 	return result;
 }
