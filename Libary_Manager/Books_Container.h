@@ -15,15 +15,15 @@ public:
 	Books_Container(){}
 
 	//return true if added , false if not (book with same isbn exists)
-	bool						addBook(Book  book);
+	bool							addBook(Book  book);
 
 	//return true if and only if the book was erased 
-	bool						removeBook(Book  book){ return books.erase(book.getISBN()) == 1; }
+	bool							removeBook(Book  book){ return books.erase(book.getISBN()) == 1; }
 
-	Book*const 				findByISBN(const unsigned long isbn) ;
-	std::list<Book*const >	findByTitle(const std::string title);
-	std::list<Book*const >	findByAuthor(const std::string author);
-	std::list<Book*const >	getAllBooks();			//returns a list of all books 
+	Book*const 						findByISBN(const unsigned long isbn) ;
+	std::list<Book*const >			findByTitle(const std::string title);
+	std::list<Book*const >			findByAuthor(const std::string author);
+	std::list<const Book*const >	getAllBooks()const ;			//returns a list of all books 
 
 private:
 	std::map<unsigned long, Book> books; 

@@ -18,9 +18,12 @@ bool Library_Manager::borrowBook(const unsigned long &ISBN, const unsigned int	&
 	if (book == NULL||bor==NULL) return false;
 
 	if (book->isAvailable()){
-		bor->addToBorrowed(book);					//what if already borrowed same book ?/
+
+		//don't allow borrower to borrow same book more than once
+		if (bor->hasBook(book)) return false;
+		bor->addToBorrowed(book);					
 		book->addBorrower(bor);
-		book->decreaseNum_of_available_copies();
+		book->decrease_available(1);
 	}
 
 	else{
@@ -47,13 +50,13 @@ bool Library_Manager::returnBook(const unsigned long &ISBN, const unsigned int	&
 		return true;
 	}
 
-	book->increaseNum_of_available_copies();
+	book->increase_available(1);
 	return true;
 }
 
 
 
-bool Library_Manager::addBook(const string& title, const string& author, const long& ISBN){
+bool Library_Manager::addBook(const string& title, const string& author, const long& ISBN, const unsigned int &howMany){
 
 	Book * found_book = books.findByISBN(ISBN);
 
@@ -62,8 +65,8 @@ bool Library_Manager::addBook(const string& title, const string& author, const l
 		if (found_book->getAuthor() != author || found_book->getTitle() != title)
 			return false;
 
-		found_book->increaseNum_of_copies();
-		found_book->increaseNum_of_available_copies();
+		found_book->increaseNum_of_copies(howMany);
+		found_book->increase_available(howMany);
 	}
 
 	else{
@@ -76,14 +79,14 @@ bool Library_Manager::addBook(const string& title, const string& author, const l
 /*
 remove a single book  from the collection only if it is available.
 */
-bool Library_Manager::removeBook(const long &ISBN){
+bool Library_Manager::removeBook(const long &ISBN,  const unsigned int &howMany){
 
 	Book * found_book = books.findByISBN(ISBN);
 
-	if (found_book == NULL || !found_book->isAvailable()) return false;
+	if (found_book == NULL || found_book->getNum_of_available_copies() < howMany) return false;
 
-	found_book->decreaseNum_of_copies();
-	found_book->decreaseNum_of_available_copies();
+	found_book->decreaseNum_of_copies(howMany);
+	found_book->decrease_available(howMany);
 
 	//if we removed the last copy , delete book from collection!
 	if (found_book->getNum_of_copies() == 0)
@@ -93,13 +96,13 @@ bool Library_Manager::removeBook(const long &ISBN){
 }
 
 
-void Library_Manager::reportBooksStatus()		 	{
+void Library_Manager::reportBooksStatus()const 		 	{
 
-	list<Book*const > booksList = books.getAllBooks();
-	list<Book*const >::const_iterator citer = booksList.cbegin();
+	list<const Book*const > booksList = books.getAllBooks();
+	list<const Book*const >::const_iterator citer = booksList.cbegin();
 
 	cout << "****************************[Books Report]*******************************";
-	cout << endl
+	cout << endl<<endl
 		<< setw(10) << "ISBN"
 		<< setw(25) << "title"
 		<< setw(13) << "author"
@@ -117,14 +120,12 @@ void Library_Manager::reportBooksStatus()		 	{
 
 		citer++;
 	}
+	cout << endl;
 	cout << "*************************************************************************";
 	cout << endl << endl;
 }
 
 
-void Library_Manager::addBorrower(const std::string &name){
-	borrowers.addBorrower(Borrower(name));
-}
 
 bool Library_Manager::removeBorrower(const long &id){
 	Borrower *found_borrower = findBorrower_ById(id);
@@ -132,16 +133,16 @@ bool Library_Manager::removeBorrower(const long &id){
 }
 
 
-void Library_Manager::reportOnAllBorrowers(){
+void Library_Manager::reportOnAllBorrowers()const {
 
-	list <Borrower*const > allBorrowers = borrowers.getAllBorrowes();
+	list <const Borrower*const > allBorrowers = borrowers.getAllBorrowes();
 	cout << "**************************[Borrowers Report]*****************************";
-	cout << endl
+	cout << endl<<endl
 		<< setw(7) << "ID"
 		<< setw(25) << "name"
 		<< setw(0) << endl;
 
-	for (list <Borrower*const >::const_iterator iter = allBorrowers.begin(); iter != allBorrowers.end(); ++iter)
+	for (list <const Borrower*const >::const_iterator iter = allBorrowers.cbegin(); iter != allBorrowers.cend(); ++iter)
 	{
 		if ((*iter)->hasBooks())
 		{
@@ -150,6 +151,7 @@ void Library_Manager::reportOnAllBorrowers(){
 				<< setw(0) << endl;
 		}
 	}
+	cout << endl;
 	cout << "*************************************************************************";
 	cout << endl << endl;
 }

@@ -4,6 +4,7 @@
 using namespace std;
 
 typedef std::map<unsigned int, Borrower>::iterator borrowers_iter;
+typedef std::map<unsigned int, Borrower>::const_iterator borrowers_citer;
 
 Borrower*const 	Borrowers_Container::findByID(const unsigned int id){
 	borrowers_iter iter = borrowers.find(id);
@@ -31,11 +32,11 @@ bool Borrowers_Container::addBorrower(const Borrower & borrower){
 }
 
 
-std::list<Borrower*const>	Borrowers_Container::getAllBorrowes(){
-	std::list<Borrower*const> result;
+std::list<const Borrower*const>	Borrowers_Container::getAllBorrowes()const {
+	std::list<const Borrower*const> result;
 
-	for (borrowers_iter iter = borrowers.begin(); iter != borrowers.end(); ++iter) {
-		result.push_back(&iter->second);
+	for (borrowers_citer citer = borrowers.cbegin(); citer != borrowers.cend(); ++citer) {
+		result.push_back(&citer->second);
 	}
 
 	return result;

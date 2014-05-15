@@ -47,10 +47,10 @@ std::list<Book*const >	Books_Container::findByAuthor(const std::string author) {
 	return findBookByString(books, author, "author");
 }
 
-std::list<Book*const >	Books_Container::getAllBooks(){
-	std::list<Book*const> result;
+std::list<const Book*const >	Books_Container::getAllBooks()const {
+	std::list<const Book*const> result;
 
-	for (books_iter iter = books.begin(); iter != books.end(); ++iter) {
+	for (books_citer iter = books.cbegin(); iter != books.cend(); ++iter) {
 		result.push_back(&iter->second);
 	}
 
