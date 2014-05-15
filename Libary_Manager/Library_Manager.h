@@ -11,9 +11,12 @@
 class Library_Manager{
 
 
-public:
+public: 
 	~Library_Manager(){ /*	should be empty!!	*/ }
 	Library_Manager(){}
+
+	bool	updateBook(const long &ISBN, const std::string str, const long newISBN, int c);
+	bool	updateBorrower(unsigned int ID, const std::string str, int c);
 
 	bool	borrowBook(const unsigned long &ISBN , const unsigned int	&borrower_id);
 	bool	returnBook(const unsigned long &ISBN , const unsigned int	&borrower_id);
