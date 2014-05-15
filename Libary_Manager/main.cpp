@@ -24,14 +24,6 @@ int main(){
 
 
 	manager.borrowBook(123, 1);
-	manager.borrowBook(123, 1);
-
-	manager.borrowBook(123, 1);
-	manager.returnBook(123, 1);
-
-
-
-
 	manager.borrowBook(123, 2);
 	manager.borrowBook(123, 3);
 	manager.borrowBook(123456789, 4);

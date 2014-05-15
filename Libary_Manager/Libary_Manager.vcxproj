@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Books_Container.cpp" />
+    <ClCompile Include="Borrowers_Container.cpp" />
     <ClCompile Include="Library_Manager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
