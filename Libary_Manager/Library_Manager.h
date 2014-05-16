@@ -27,7 +27,7 @@ public:
 	std::list<Book*const >		findBook_ByTitle(const std::string &title)	 { return books.findByTitle(title); }
 	std::list<Book*const >		findBook_ByAuthor(const std::string &author) { return books.findByAuthor(author); }
 	Book*						findBook_ByISBN(const long &ISBN)			 { return books.findByISBN(ISBN); }
-	void						reportBooksStatus()const ;
+	void						reportBooksStatus(const std::string& byWhat)const;
 
 
 
@@ -35,7 +35,7 @@ public:
 	bool						removeBorrower(const long &id);
 	Borrower*const 				findBorrower_ById(const long &id)			 { return borrowers.findByID(id); }
 	std::list<Borrower*const >	findBorrower_ByName(const std::string &name) { return borrowers.findByName(name); }
-	void						reportOnAllBorrowers()const ;
+	void						reportOnAllBorrowers(const std::string& byWhat)const ;
 
 
 private:

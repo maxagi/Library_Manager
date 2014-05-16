@@ -4,7 +4,7 @@
 #include <string>
 #include <list>
 #include "book.h"
-
+#include <sstream>
 class Borrower{
 public:
 	~Borrower(){	/*needs to be empty */ }
@@ -13,6 +13,7 @@ public:
 	std::string					getName()					 const	 { return name; }
 	void						setName(const std::string val)		 { name = val; }
 	unsigned int				getId()						 const	 { return id; }
+	std::string					getId_asString()			 const   { std::ostringstream ss; ss << id; return ss.str(); } 
 	std::list<const Book*const >getBorrowedBooks()			 const	 { return borrowed_books; }
 	int							getBorrowedBooksSize()		 const	 { return borrowed_books.size(); }	 // i think we will not need to use it ever.
 
@@ -29,6 +30,7 @@ private:
 	std::string						name;
 	const unsigned int				id;
 	std::list <const Book*const >	borrowed_books;
+
 };
 
 #endif 

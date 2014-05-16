@@ -15,13 +15,13 @@ bool Library_Manager::borrowBook(const unsigned long &ISBN, const unsigned int	&
 	Borrower * bor = findBorrower_ById(borrower_id);
 	Book * book = findBook_ByISBN(ISBN);
 
-	if (book == NULL||bor==NULL) return false;
+	if (book == NULL || bor == NULL) return false;
 
 	if (book->isAvailable()){
 
 		//don't allow borrower to borrow same book more than once
 		if (bor->hasBook(book)) return false;
-		bor->addToBorrowed(book);					
+		bor->addToBorrowed(book);
 		book->addBorrower(bor);
 		book->decrease_available(1);
 	}
@@ -79,7 +79,7 @@ bool Library_Manager::addBook(const string& title, const string& author, const l
 /*
 remove a single book  from the collection only if it is available.
 */
-bool Library_Manager::removeBook(const long &ISBN,  const unsigned int &howMany){
+bool Library_Manager::removeBook(const long &ISBN, const unsigned int &howMany){
 
 	Book * found_book = books.findByISBN(ISBN);
 
@@ -96,24 +96,35 @@ bool Library_Manager::removeBook(const long &ISBN,  const unsigned int &howMany)
 }
 
 
-void Library_Manager::reportBooksStatus()const 		 	{
+void Library_Manager::reportBooksStatus(const string& byWhat)const 		 	{
 
 	list<const Book*const > booksList = books.getAllBooks();
 	list<const Book*const >::const_iterator citer = booksList.cbegin();
 
+	string(Book::* getter) ()const = NULL;		//pointer to Book's getter  function
+
+	if (byWhat == "title"){
+		getter = &Book::getTitle;
+	}
+	else if (byWhat == "author"){
+		getter = &Book::getAuthor;
+	}
+	else if (byWhat == "ISBN"){
+		getter = &Book::getISBN_asString;
+	}
+
+	else return;
+
 	cout << "****************************[Books Report]*******************************";
-	cout << endl<<endl
-		<< setw(10) << "ISBN"
-		<< setw(25) << "title"
-		<< setw(13) << "author"
+	cout << endl << endl
+		<< setw(25) << byWhat
 		<< setw(15) << "available"
 		<< setw(10) << "total"
 		<< setw(0) << endl;
 
 	while (citer != booksList.cend()){
-		cout << setw(10) << (*citer)->getISBN()
-			<< setw(25) << (*citer)->getTitle()
-			<< setw(13) << (*citer)->getAuthor()
+		cout
+			<< setw(25) << ((*citer)->*getter)()
 			<< setw(15) << (*citer)->getNum_of_available_copies()
 			<< setw(10) << (*citer)->getNum_of_copies()
 			<< setw(0) << endl;
@@ -133,21 +144,31 @@ bool Library_Manager::removeBorrower(const long &id){
 }
 
 
-void Library_Manager::reportOnAllBorrowers()const {
+void Library_Manager::reportOnAllBorrowers(const string &byWhat)const {
+
+	string(Borrower::* getter) ()const = NULL;		//pointer to Borrower's getter  function
+
+	if (byWhat == "name"){
+		getter = &Borrower::getName;
+	}
+	else if (byWhat == "ID"){
+		getter = &Borrower::getId_asString;
+	}
+	else return;
+
 
 	list <const Borrower*const > allBorrowers = borrowers.getAllBorrowes();
 	cout << "**************************[Borrowers Report]*****************************";
-	cout << endl<<endl
-		<< setw(7) << "ID"
-		<< setw(25) << "name"
+	cout << endl << endl
+		<< setw(25) << byWhat
 		<< setw(0) << endl;
 
-	for (list <const Borrower*const >::const_iterator iter = allBorrowers.cbegin(); iter != allBorrowers.cend(); ++iter)
+	for (list <const Borrower*const >::const_iterator citer = allBorrowers.cbegin(); citer != allBorrowers.cend(); ++citer)
 	{
-		if ((*iter)->hasBooks())
+		if ((*citer)->hasBooks())
 		{
-			cout << setw(7) << (*iter)->getId()
-				<< setw(25) << (*iter)->getName()
+			cout 
+				<< setw(25) << ((*citer)->*getter)()
 				<< setw(0) << endl;
 		}
 	}

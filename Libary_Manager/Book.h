@@ -6,6 +6,7 @@
 #include <list>
 #include <stack>
 #include <queue>
+#include <sstream>
 class Borrower;
 class Book{
 public:
@@ -17,8 +18,9 @@ public:
 	//Book & operator=(const Book & other);		<-- use deafault implementation
 
 
-	unsigned long				getISBN()			const			 { return ISBN; }
 
+	unsigned long				getISBN()			const			 { return ISBN; }
+	std::string					getISBN_asString()	const			 { std::ostringstream ss; ss << ISBN; return ss.str(); }
 	std::string					getTitle()			const			 { return title; }
 	void						setTitle(const std::string &val)	 { title = val; }
 

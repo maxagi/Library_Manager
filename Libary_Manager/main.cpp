@@ -20,7 +20,7 @@ int main(){
 	manager.addBook("c++", "david", 222, 1);
 	manager.addBook("c", "yossi", 12345, 1);
 	manager.addBook("kipa aduma ba yaar", "moshe cohen", 123456789, 1);
-	manager.reportBooksStatus();
+	manager.reportBooksStatus("author");
 
 
 	manager.borrowBook(123, 1);
@@ -28,10 +28,10 @@ int main(){
 	manager.borrowBook(123, 3);
 	manager.borrowBook(123456789, 4);
 
-	manager.reportOnAllBorrowers();
+	manager.reportOnAllBorrowers("ID");
 	manager.returnBook(123, 1);
 	manager.returnBook(123, 2);
-	manager.reportOnAllBorrowers();
+	manager.reportOnAllBorrowers("name");
 
 	list<Book*const > yossiBooks = manager.findBook_ByAuthor("yossi");
 
