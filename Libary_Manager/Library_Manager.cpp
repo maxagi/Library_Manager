@@ -1,9 +1,8 @@
 #include "Library_Manager.h"
 #include <iostream>
 #include <iomanip>
-unsigned int Borrower::next_id = 1;
 using namespace std;
-
+unsigned int Borrower::next_id = 1;
 
 /*
 TODO:
@@ -11,7 +10,7 @@ ask Yossi if  we need to check if some one is waiting for
 the book , and if yes , let him borrow it .
 */
 
-bool Library_Manager::borrowBook(const unsigned long &ISBN, const unsigned int	&borrower_id){
+bool Library_Manager::borrowBook(const unsigned long &ISBN, const unsigned int &borrower_id){
 	Borrower * bor = findBorrower_ById(borrower_id);
 	Book * book = findBook_ByISBN(ISBN);
 
@@ -32,9 +31,19 @@ bool Library_Manager::borrowBook(const unsigned long &ISBN, const unsigned int	&
 	return true;
 }
 
+bool Library_Manager::updateBook(const long &ISBN, const std::string str, int c){
+	Book * found_book = books.findByISBN(ISBN);
+	if (found_book == NULL || !found_book->isAvailable()) return false;
+	if (c = 0)
+		found_book->setTitle(str);
+	else if (c = 1)
+		found_book->setAuthor(str);
+	return true;
+}
 
 
-bool Library_Manager::returnBook(const unsigned long &ISBN, const unsigned int	&borrower_id){
+
+bool Library_Manager::returnBook(const unsigned long &ISBN, const unsigned int &borrower_id){
 	Borrower * bor = findBorrower_ById(borrower_id);
 	Book * book = findBook_ByISBN(ISBN);
 
@@ -96,12 +105,12 @@ bool Library_Manager::removeBook(const long &ISBN, const unsigned int &howMany){
 }
 
 
-void Library_Manager::reportBooksStatus(const string& byWhat)const 		 	{
+void Library_Manager::reportBooksStatus(const string& byWhat)const {
 
 	list<const Book*const > booksList = books.getAllBooks();
 	list<const Book*const >::const_iterator citer = booksList.cbegin();
 
-	string(Book::* getter) ()const = NULL;		//pointer to Book's getter  function
+	string(Book::* getter) ()const = NULL; //pointer to Book's getter  function
 
 	if (byWhat == "title"){
 		getter = &Book::getTitle;
@@ -146,7 +155,7 @@ bool Library_Manager::removeBorrower(const long &id){
 
 void Library_Manager::reportOnAllBorrowers(const string &byWhat)const {
 
-	string(Borrower::* getter) ()const = NULL;		//pointer to Borrower's getter  function
+	string(Borrower::* getter) ()const = NULL; //pointer to Borrower's getter  function
 
 	if (byWhat == "name"){
 		getter = &Borrower::getName;
@@ -167,7 +176,7 @@ void Library_Manager::reportOnAllBorrowers(const string &byWhat)const {
 	{
 		if ((*citer)->hasBooks())
 		{
-			cout 
+			cout
 				<< setw(25) << ((*citer)->*getter)()
 				<< setw(0) << endl;
 		}
@@ -175,4 +184,15 @@ void Library_Manager::reportOnAllBorrowers(const string &byWhat)const {
 	cout << endl;
 	cout << "*************************************************************************";
 	cout << endl << endl;
+}
+
+bool Library_Manager::updateBorrowerName(unsigned int ID, const std::string str){
+
+	Borrower* found_borrower = findBorrower_ById(ID);
+
+	if (found_borrower == NULL) return false;
+
+	found_borrower->setName(str);
+
+	return true;
 }
