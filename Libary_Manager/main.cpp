@@ -1,9 +1,9 @@
 #include "Library_Manager.h"
 #include<iostream>
+using namespace std;
 //#include <vld.h>
 
 #define husam
-using namespace std;
 int main(){
 
 
@@ -58,6 +58,8 @@ int main(){
 	string str1, str2, str3, str4;
 	int int1, int2;
 	long long1;
+	std::list<Book*const > books;
+	Borrower* borr;
 
 	while (cont){
 		cout << "\n";
@@ -74,6 +76,7 @@ int main(){
 			<< " 9: quit the system and realse all data" << endl
 			<< "Enter your choice : ";
 		cin >> c;
+
 
 		switch (c) {
 		case 0:
@@ -133,19 +136,20 @@ int main(){
 			cout << "1: search by author" << endl;
 			cout << "2: search by ISBN" << endl;
 			cin >> c1;
+
 			switch (c1) {
 			case 0:
 				cin.sync();
 				cout << "please enter the title of the book" << endl;
 				getline(cin, str1);
-				std::list<Book*const > books = lib.findBook_ByTitle(str1);
+				books = lib.findBook_ByTitle(str1);
 				break;
 
 			case 1:
 				cin.sync();
 				cout << "please enter the author name of the book" << endl;
 				getline(cin, str1);
-				std::list<Book*const > books = lib.findBook_ByAuthor(str1);
+				 books = lib.findBook_ByAuthor(str1);
 				break;
 
 			case 2:
@@ -179,7 +183,7 @@ int main(){
 			case 0:
 				cout << "please enter the ID of the borrower" << endl;
 				cin >> int1;
-				Borrower* borr = lib.findBorrower_ById(int1);
+				borr = lib.findBorrower_ById(int1);
 				break;
 
 			case 1:
@@ -233,11 +237,12 @@ int main(){
 			cont = false;
 		}
 
-		return 0;
+
 
 
 
 	}
+
 
 #endif // husam
 }
