@@ -31,7 +31,7 @@ bool Library_Manager::borrowBook(const unsigned long &ISBN, const unsigned int &
 	return true;
 }
 
-bool Library_Manager::updateBook(const long &ISBN, const std::string str, int c){
+bool Library_Manager::updateBook(const long &ISBN, const std::string &str, int c){
 	Book * found_book = books.findByISBN(ISBN);
 	if (found_book == NULL || !found_book->isAvailable()) return false;
 	if (c = 0)
@@ -186,7 +186,7 @@ void Library_Manager::reportOnAllBorrowers(const string &byWhat)const {
 	cout << endl << endl;
 }
 
-bool Library_Manager::updateBorrowerName(unsigned int ID, const std::string str){
+bool Library_Manager::updateBorrowerName(const unsigned int ID, const std::string &str){
 
 	Borrower* found_borrower = findBorrower_ById(ID);
 

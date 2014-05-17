@@ -26,6 +26,9 @@ public:
 	std::list<const Book*const >	getAllBooks()const ;			//returns a list of all books 
 
 private:
+	Books_Container(const Books_Container & other);
+	Books_Container & operator=(const Books_Container & other);
+
 	std::map<unsigned long, Book> books; 
 };
 #endif 

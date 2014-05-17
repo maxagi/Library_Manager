@@ -19,6 +19,10 @@ public:
 	std::list<const Borrower*const>	getAllBorrowes()const ;
 
 private:
+	Borrowers_Container(const Borrowers_Container & other);
+	Borrowers_Container & operator=(const Borrowers_Container & other);
+
+
 	std::map<unsigned int,Borrower> borrowers;
 };
 

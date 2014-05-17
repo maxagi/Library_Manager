@@ -7,8 +7,11 @@
 #include <sstream>
 class Borrower{
 public:
-	~Borrower(){	/*needs to be empty */ }
+	~Borrower(){}
 	Borrower(const std::string name) :name(name), id(next_id++){}
+
+	//Borrower(const Borrower & other){}				<-- use default implementation
+	//Borrower & operator=(const Borrower & other);		<-- use default implementation
 
 	std::string					getName()					 const	 { return name; }
 	void						setName(const std::string val)		 { name = val; }

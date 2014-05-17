@@ -237,10 +237,6 @@ int main(){
 			cont = false;
 		}
 
-
-
-
-
 	}
 
 
