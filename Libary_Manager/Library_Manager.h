@@ -46,7 +46,7 @@ private:
 	Library_Manager(const Library_Manager & other);
 	Library_Manager & operator=(const Library_Manager & other);
 
-	Books_Container books; //all library books
-	Borrowers_Container borrowers; //all borrowers registered to the library
+	Books_Container books;			//all library books
+	Borrowers_Container borrowers;	//all borrowers registered to the library
 
 };
