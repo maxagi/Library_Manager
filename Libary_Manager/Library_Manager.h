@@ -19,8 +19,8 @@ public:
 	bool						borrowBook(const unsigned long &ISBN, const unsigned int &borrower_id);
 	bool						returnBook(const unsigned long &ISBN, const unsigned int &borrower_id);
 
-	bool						addBook(const std::string &title, const std::string &author, const long &ISBN, const unsigned int &howMany=1);
-	bool						removeBook(const long &ISBN, const unsigned int &howMany=1);
+	bool						addBook(const std::string &title, const std::string &author, const long &ISBN, const unsigned int &howMany = 1);
+	bool						removeBook(const long &ISBN, const unsigned int &howMany = 1);
 	bool						updateBook(const long &ISBN, const std::string& str, const int c);
 
 	std::list<Book*const >		findBook_ByTitle(const std::string &title)		{ return books.findByTitle(title); }
@@ -40,6 +40,10 @@ public:
 
 	void						reportOnAllBorrowers(const std::string& byWhat)	const;
 
+	void						printBooks(std::list< Book*const > bookList)const;
+	void						printBook(Book*const  book)const;
+	void						printBorrowers(std::list<Borrower* const >  borrowers)const ;
+	void						printBorrower(Borrower* const borrower)const ;
 
 private:
 

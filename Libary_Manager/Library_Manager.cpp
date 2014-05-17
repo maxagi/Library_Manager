@@ -30,13 +30,16 @@ bool Library_Manager::borrowBook(const unsigned long &ISBN, const unsigned int &
 	}
 	return true;
 }
-
+/*
+updates the book parameter only if all copies of the book are available
+*/
 bool Library_Manager::updateBook(const long &ISBN, const std::string &str, int c){
 	Book * found_book = books.findByISBN(ISBN);
-	if (found_book == NULL || !found_book->isAvailable()) return false;
-	if (c = 0)
+	if (found_book == NULL || found_book->getNum_of_available_copies()!=found_book->getNum_of_copies() )
+		return false;
+	if (c == 0)
 		found_book->setTitle(str);
-	else if (c = 1)
+	else if (c == 1)
 		found_book->setAuthor(str);
 	return true;
 }
@@ -195,4 +198,44 @@ bool Library_Manager::updateBorrowerName(const unsigned int ID, const std::strin
 	found_borrower->setName(str);
 
 	return true;
+}
+
+void Library_Manager::printBooks(std::list<Book*const > bookList)const {
+	std::list< Book* const>::const_iterator citer = bookList.cbegin();
+	cout << "Search results:" << endl;
+	while (citer != bookList.cend()){
+		cout << "book title: " << (*citer)->getTitle() << endl;
+		cout << "book Author: " << (*citer)->getAuthor() << endl;
+		cout << "book ISBN: " << (*citer)->getISBN() << endl;
+		cout << "book number of available copies: " << (*citer)->getNum_of_available_copies() << endl;
+		citer++;
+		cout << "<<<<<<<<<<<<<<<<<<<<<<" << endl;
+	}
+}
+
+void Library_Manager::printBook(Book*const  book)const {
+
+	cout << "Search results:" << endl;
+	cout << "book title: " << book->getTitle() << endl;
+	cout << "book Author: " << book->getAuthor() << endl;
+	cout << "book ISBN: " << book->getISBN() << endl;
+	cout << "book number of available copies: " << book->getNum_of_available_copies() << endl;
+}
+
+void Library_Manager::printBorrowers(std::list<Borrower* const >  borrowers)const {
+	std::list<Borrower* const>::iterator citer = borrowers.begin();
+	cout << "Search results:" << endl;
+	while (citer != borrowers.cend()){
+		cout << "borrower ID: " << (*citer)->getId() << endl;
+		cout << "borrower Name: " << (*citer)->getName() << endl;
+		citer++;
+		cout << "<<<<<<<<<<<<<<<<<<<<<<" << endl;
+	}
+}
+
+void Library_Manager::printBorrower(Borrower*const  borrower)const {
+
+	cout << "Search results:" << endl;
+	cout << "borrower ID: " << borrower->getId() << endl;
+	cout << "borrower Name: " << borrower->getName() << endl;
 }

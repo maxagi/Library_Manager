@@ -51,7 +51,6 @@ int main(){
 
 #ifdef husam
 
-
 	Library_Manager lib;
 	unsigned int c, c1;
 	bool cont = true;
@@ -59,6 +58,8 @@ int main(){
 	int int1, int2;
 	long long1;
 	std::list<Book*const > books;
+	std::list<Borrower*const > borrowers;
+
 	Borrower* borr;
 
 	while (cont){
@@ -143,21 +144,23 @@ int main(){
 				cout << "please enter the title of the book" << endl;
 				getline(cin, str1);
 				books = lib.findBook_ByTitle(str1);
+				lib.printBooks(books);
 				break;
 
 			case 1:
 				cin.sync();
 				cout << "please enter the author name of the book" << endl;
 				getline(cin, str1);
-				 books = lib.findBook_ByAuthor(str1);
+				books = lib.findBook_ByAuthor(str1);
+				lib.printBooks(books);
 				break;
 
 			case 2:
 				cout << "please enter the ISBN of the book" << endl;
 				cin >> long1;
 				Book*const book = lib.findBook_ByISBN(long1);
+				lib.printBook(book);
 				break;
-				// TODO: add function that print the books
 			}
 			break;
 
@@ -184,15 +187,17 @@ int main(){
 				cout << "please enter the ID of the borrower" << endl;
 				cin >> int1;
 				borr = lib.findBorrower_ById(int1);
+				lib.printBorrower(borr);
 				break;
 
 			case 1:
 				cin.sync();
 				cout << "please enter borrower name" << endl;
 				getline(cin, str1);
+				borrowers = lib.findBorrower_ByName(str1);
+				lib.printBorrowers(borrowers);
 				break;
 			}
-			// TODO: print the borrower
 			break;
 
 		case 7:
