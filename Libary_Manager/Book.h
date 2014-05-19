@@ -1,12 +1,13 @@
 #ifndef BOOK_H
 #define BOOK_H
 
-
 #include <string>
 #include <list>
 #include <stack>
 #include <queue>
 #include <sstream>
+#include <iostream>
+
 class Borrower;
 class Book{
 public:
@@ -43,8 +44,17 @@ public:
 
 
 	Borrower*					popFirstInWaitingList()				 { Borrower* b = waiting_list.front(); waiting_list.pop(); return b; }
-	void						addToWaitingList(Borrower* const b)  { waiting_list.push(b); }
+	int							addToWaitingList(Borrower* const b)  { waiting_list.push(b); return waiting_list.size(); } //returns place in line 
 	bool						hasWaiters()		const			 { return waiting_list.size() > 0; }
+
+	void						print()const {
+		std::cout
+			<< "ISBN: " << ISBN << "\t"
+			<< "title: " << title << "\t"	
+			<< "author: " << author << "\t"
+			<< "copies: " << num_of_copies << "\t"
+			<< "avail: " << available_copies << "\t"<<std::endl;
+	}
 
 private:
 	std::string				title;

@@ -41,5 +41,8 @@
     <ClCompile Include="Books_Container.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Borrowers_Container.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

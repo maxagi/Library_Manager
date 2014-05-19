@@ -16,8 +16,8 @@ public:
 
 
 
-	bool						borrowBook(const unsigned long &ISBN, const unsigned int &borrower_id);
-	bool						returnBook(const unsigned long &ISBN, const unsigned int &borrower_id);
+	int							borrowBook(const unsigned long &ISBN, const unsigned int &borrower_id);
+	int							returnBook(const unsigned long &ISBN, const unsigned int &borrower_id);
 
 	bool						addBook(const std::string &title, const std::string &author, const long &ISBN, const unsigned int &howMany = 1);
 	bool						removeBook(const long &ISBN, const unsigned int &howMany = 1);
@@ -27,30 +27,25 @@ public:
 	std::list<Book*const >		findBook_ByAuthor(const std::string &author)	{ return books.findByAuthor(author); }
 	Book*						findBook_ByISBN(const long &ISBN)				{ return books.findByISBN(ISBN); }
 
-	void						reportBooksStatus(const std::string& byWhat)const;
+	void						reportBooksStatus(const std::string& title_or_isbn, const std::string& byWhat);
 
 
 
 	bool						updateBorrowerName(const unsigned int ID, const std::string &str);
 	bool						removeBorrower(const long &id);
 	void						addBorrower(const std::string &name)			{ borrowers.addBorrower(Borrower(name)); }
-
 	Borrower*const				findBorrower_ById(const long &id)				{ return borrowers.findByID(id); }
 	std::list<Borrower*const >	findBorrower_ByName(const std::string &name)	{ return borrowers.findByName(name); }
 
 	void						reportOnAllBorrowers(const std::string& byWhat)	const;
 
-	void						printBooks(std::list< Book*const > bookList)const;
-	void						printBook(Book*const  book)const;
-	void						printBorrowers(std::list<Borrower* const >  borrowers)const ;
-	void						printBorrower(Borrower* const borrower)const ;
 
 private:
 
 	Library_Manager(const Library_Manager & other);
 	Library_Manager & operator=(const Library_Manager & other);
 
-	Books_Container books;			//all library books
+	Books_Container books;	//all library books
 	Borrowers_Container borrowers;	//all borrowers registered to the library
 
 };

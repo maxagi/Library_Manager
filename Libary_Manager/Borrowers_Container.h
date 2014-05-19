@@ -1,3 +1,6 @@
+#ifndef	 BORROWERS_CONTAINER_H
+#define	 BORROWERS_CONTAINER_H
+
 #include "Borrower.h"
 #include<map>
 #include<list>
@@ -8,7 +11,7 @@
 class Borrowers_Container{
 
 public:
-	~Borrowers_Container(){ /*	should  be empty!!	*/ }
+	~Borrowers_Container(){}
 	Borrowers_Container(){}
 
 	bool	addBorrower(const Borrower & borrower);
@@ -25,4 +28,4 @@ private:
 
 	std::map<unsigned int,Borrower> borrowers;
 };
-
+#endif

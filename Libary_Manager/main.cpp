@@ -3,6 +3,22 @@
 using namespace std;
 //#include <vld.h>
 
+
+
+static void printBooks(std::list< Book*const > bookList){
+	std::list< Book* const>::const_iterator citer = bookList.cbegin();
+	while (citer != bookList.cend())
+		(*citer++)->print();
+}
+
+static void printBorrowers(std::list<Borrower* const >  borrowers) {
+	std::list<Borrower* const>::iterator citer = borrowers.begin();
+	while (citer != borrowers.cend())
+		(*citer++)->print();
+}
+
+
+
 #define husam
 int main(){
 
@@ -57,14 +73,14 @@ int main(){
 	string str1, str2, str3, str4;
 	int int1, int2;
 	long long1;
-	std::list<Book*const > books;
+	std::list< Book*const > books;
 	std::list<Borrower*const > borrowers;
 
 	Borrower* borr;
 
 	while (cont){
 		cout << "\n";
-		cout << " Libaray system " << endl
+		cout << " Library system " << endl
 			<< " 0: add a new book to the library" << endl
 			<< " 1: remove a book" << endl
 			<< " 2: Update a book" << endl
@@ -74,8 +90,11 @@ int main(){
 			<< " 6: Search borrower record " << endl
 			<< " 7: Update borrower record " << endl
 			<< " 8: Report on all borrowers" << endl
-			<< " 9: quit the system and realse all data" << endl
-			<< "Enter your choice : ";
+			<< endl
+			<< " 9: borrow book" << endl
+			<< " 10: return book" << endl << endl
+			<< " 11: quit" << endl << endl
+			<< "Enter your choice : " << endl;
 		cin >> c;
 
 
@@ -93,7 +112,7 @@ int main(){
 
 			if (long1 > 0 && int1 > 0){ // check if ISBN in valid
 				if (!lib.addBook(str1, str2, long1, int1))
-					cout << "The book wasn't added due data inserted error" << endl;
+					cout << "The book wasn't added due to error" << endl;
 			}
 			else
 				cout << "the number of copies and ISBN have to be numbers greater then 0" << endl;
@@ -144,7 +163,8 @@ int main(){
 				cout << "please enter the title of the book" << endl;
 				getline(cin, str1);
 				books = lib.findBook_ByTitle(str1);
-				lib.printBooks(books);
+				cout << "Search results:" << endl;
+				printBooks(books);
 				break;
 
 			case 1:
@@ -152,23 +172,40 @@ int main(){
 				cout << "please enter the author name of the book" << endl;
 				getline(cin, str1);
 				books = lib.findBook_ByAuthor(str1);
-				lib.printBooks(books);
+				cout << "Search results:" << endl;
+				printBooks(books);
 				break;
 
 			case 2:
 				cout << "please enter the ISBN of the book" << endl;
 				cin >> long1;
 				Book*const book = lib.findBook_ByISBN(long1);
-				lib.printBook(book);
+				cout << "Search results:" << endl;
+				book->print();
 				break;
 			}
 			break;
 
 		case 4:
 			cin.sync();
-			cout << "please enter by what would you like to see book status title, author, ISBN" << endl;
-			getline(cin, str1);
-			lib.reportBooksStatus(str1);
+			cout << "0: report  by ISBN" << endl;
+			cout << "1: report by title" << endl;
+			cin >> c1;
+			switch (c1) {
+			case 0:
+				cin.sync();
+				cout << "enter ISBN:";
+				getline(cin, str1);
+				lib.reportBooksStatus(str1, "isbn");
+				break;
+
+			case 1:
+				cin.sync();
+				cout << "enter title:";
+				getline(cin, str1);
+				lib.reportBooksStatus(str1,"title");
+				break;
+			}
 			break;
 
 		case 5:
@@ -187,7 +224,8 @@ int main(){
 				cout << "please enter the ID of the borrower" << endl;
 				cin >> int1;
 				borr = lib.findBorrower_ById(int1);
-				lib.printBorrower(borr);
+				cout << "Search results:" << endl;
+				borr->print();
 				break;
 
 			case 1:
@@ -195,7 +233,8 @@ int main(){
 				cout << "please enter borrower name" << endl;
 				getline(cin, str1);
 				borrowers = lib.findBorrower_ByName(str1);
-				lib.printBorrowers(borrowers);
+				cout << "Search results:" << endl;
+				printBorrowers(borrowers);
 				break;
 			}
 			break;
@@ -237,6 +276,31 @@ int main(){
 			lib.reportOnAllBorrowers(str1);
 			break;
 
+		case 9:
+			cin.sync();
+			cout << "borrower ID:" << endl;
+			cin >> int1;
+			cout << "books ISBN:" << endl;
+			cin >> long1;
+			int2 = lib.borrowBook(long1, int1);
+			cout << endl;
+			if (int2 < 0) cout << "error borrowing book!" << endl;
+			else if (int2 == 0) cout << "book borrowed" << endl;
+			else cout << "entered to book's waiting list , place= " << int2 << endl;
+
+			break;
+
+		case 10:
+			cin.sync();
+			cout << "borrower ID:" << endl;
+			cin >> int1;
+			cout << "books ISBN:" << endl;
+			cin >> long1;
+			cout << endl;
+			int2 = lib.returnBook(long1, int1);
+			if (int2 == -1)cout << "error returning book!" << endl;
+			else cout << "book returned" << endl;
+			break;
 
 		default:
 			cont = false;
