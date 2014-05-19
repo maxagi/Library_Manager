@@ -3,8 +3,6 @@
 using namespace std;
 //#include <vld.h>
 
-
-
 static void printBooks(std::list< Book*const > bookList){
 	std::list< Book* const>::const_iterator citer = bookList.cbegin();
 	while (citer != bookList.cend())
@@ -18,55 +16,7 @@ static void printBorrowers(std::list<Borrower* const >  borrowers) {
 }
 
 
-
-#define husam
 int main(){
-
-
-
-
-#ifdef max
-
-
-
-	Library_Manager manager;
-	manager.addBorrower("max");
-	manager.addBorrower("husam");
-	manager.addBorrower("yossi");
-	manager.addBorrower("danny");
-
-
-	manager.addBook("c++", "yossi", 123, 1);
-	manager.addBook("c++", "yossi", 123, 1);
-	manager.addBook("c++", "david", 222, 1);
-	manager.addBook("c", "yossi", 12345, 1);
-	manager.addBook("kipa aduma ba yaar", "moshe cohen", 123456789, 1);
-	manager.reportBooksStatus("author");
-
-
-	manager.borrowBook(123, 1);
-	manager.borrowBook(123, 2);
-	manager.borrowBook(123, 3);
-	manager.borrowBook(123456789, 4);
-
-	manager.reportOnAllBorrowers("ID");
-	manager.returnBook(123, 1);
-	manager.returnBook(123, 2);
-	manager.reportOnAllBorrowers("name");
-
-	list<Book*const > yossiBooks = manager.findBook_ByAuthor("yossi");
-
-
-
-
-	int x;
-	cin >> x;
-	return 0;
-
-#endif  //max
-
-#ifdef husam
-
 	Library_Manager lib;
 	unsigned int c, c1;
 	bool cont = true;
@@ -80,21 +30,21 @@ int main(){
 
 	while (cont){
 		cout << "\n";
-		cout << " Library system " << endl
+		cout << " Library system " << endl<<endl
 			<< " 0: add a new book to the library" << endl
 			<< " 1: remove a book" << endl
 			<< " 2: Update a book" << endl
 			<< " 3: Search for a book" << endl
-			<< " 4: Report on status of all books" << endl
+			<< " 4: Report on books" << endl
+			<<endl
 			<< " 5: Add borrower record" << endl
 			<< " 6: Search borrower record " << endl
 			<< " 7: Update borrower record " << endl
-			<< " 8: Report on all borrowers" << endl
+			<< " 8: Report on borrowers" << endl
 			<< endl
 			<< " 9: borrow book" << endl
-			<< " 10: return book" << endl << endl
-			<< " 11: quit" << endl << endl
-			<< "Enter your choice : " << endl;
+			<< " 10: return book" << endl
+			<< " Enter your choice (or 'q' to quit) : ";
 		cin >> c;
 
 
@@ -320,9 +270,5 @@ int main(){
 		default:
 			cont = false;
 		}
-
 	}
-
-
-#endif // husam
 }
