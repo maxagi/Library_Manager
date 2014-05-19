@@ -49,11 +49,14 @@ public:
 
 	void						print()const {
 		std::cout
-			<< "ISBN: " << ISBN << "\t"
-			<< "title: " << title << "\t"	
-			<< "author: " << author << "\t"
-			<< "copies: " << num_of_copies << "\t"
-			<< "avail: " << available_copies << "\t"<<std::endl;
+			<< "ISBN:   \t\t" << ISBN << std::endl
+			<< "title:  \t\t" << title << std::endl
+			<< "author:  \t\t" << author << std::endl
+			<< "copies:  \t\t" << num_of_copies<< std::endl
+			<< "avail:  \t\t" << available_copies << std::endl
+			<< "waiting for book:\t" << waiting_list.size() << std::endl
+			<<std::endl;
+
 	}
 
 private:

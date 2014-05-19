@@ -164,12 +164,15 @@ bool Library_Manager::removeBorrower(const long &id){
 void Library_Manager::reportOnAllBorrowers(const string& id_or_name,const string &byWhat) {
 	list < Borrower*const > allBorrowers;
 
+	//populate allBorrowers according to byWhat param
 	if (byWhat == "id"){
+		//convert string to int :
 		unsigned int id;
 		istringstream ss(id_or_name);
 		ss >> id;
 		Borrower *b = findBorrower_ById(id);
 		if (b == NULL) return;
+		//add found borrower to allBorrowers
 		allBorrowers.push_back(b);
 	}
 
@@ -178,13 +181,15 @@ void Library_Manager::reportOnAllBorrowers(const string& id_or_name,const string
 	}
 	else return;
 
+	//iterate over allBorrowers and print each borrower's details:
 	cout << "**************************[Borrowers Report]*****************************"<<endl<<endl;
 	for (list < Borrower*const >::const_iterator bor_citer = allBorrowers.cbegin(); bor_citer != allBorrowers.cend(); ++bor_citer)
 	{
 		cout << "-------------------------------------------------------------------------" << endl;
 		(*bor_citer)->print();
 
-		cout << "borrowed book:" << endl;
+		//print borrower's borrowed books list :
+		cout << "list borrowed books:" << endl<<endl;
 		list <const Book*const > borrowedBooks = (*bor_citer)->getBorrowedBooks();
 		for (list <const Book*const >::const_iterator book_citer = borrowedBooks.cbegin(); book_citer != borrowedBooks.cend(); ++book_citer){
 			(*book_citer)->print();
