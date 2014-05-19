@@ -37,7 +37,7 @@ public:
 	Borrower*const				findBorrower_ById(const long &id)				{ return borrowers.findByID(id); }
 	std::list<Borrower*const >	findBorrower_ByName(const std::string &name)	{ return borrowers.findByName(name); }
 
-	void						reportOnAllBorrowers(const std::string& byWhat)	const;
+	void						reportOnAllBorrowers(const std::string& id_or_name, const std::string &byWh);
 
 
 private:

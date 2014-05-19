@@ -121,7 +121,7 @@ void Library_Manager::reportBooksStatus(const string& title_or_isbn, const strin
 	if (byWhat == "isbn"){
 		//convert string to long:
 		char * pEnd;
-		long isbn = std::strtol(title_or_isbn.c_str(), &pEnd, 10);
+		unsigned long isbn = std::strtol(title_or_isbn.c_str(), &pEnd, 10);
 
 		//find book by isbn and add it to booksList
 		Book* book = findBook_ByISBN(isbn);
@@ -132,6 +132,7 @@ void Library_Manager::reportBooksStatus(const string& title_or_isbn, const strin
 	else if (byWhat == "title"){
 		booksList = findBook_ByTitle(title_or_isbn);
 	}
+	else return;
 
 	//iterate over booksList and print each book's details:
 	cout << "****************************[Books Report]*******************************" << endl;
@@ -160,37 +161,37 @@ bool Library_Manager::removeBorrower(const long &id){
 }
 
 
-void Library_Manager::reportOnAllBorrowers(const string &byWhat)const {
+void Library_Manager::reportOnAllBorrowers(const string& id_or_name,const string &byWhat) {
+	list < Borrower*const > allBorrowers;
 
-	string(Borrower::* getter) ()const = NULL; //pointer to Borrower's getter function
-
-	if (byWhat == "name"){
-		getter = &Borrower::getName;
+	if (byWhat == "id"){
+		unsigned int id;
+		istringstream ss(id_or_name);
+		ss >> id;
+		Borrower *b = findBorrower_ById(id);
+		if (b == NULL) return;
+		allBorrowers.push_back(b);
 	}
-	else if (byWhat == "ID"){
-		getter = &Borrower::getId_asString;
+
+	else if (byWhat == "name"){
+		allBorrowers = findBorrower_ByName(id_or_name);
 	}
 	else return;
 
-
-	list <const Borrower*const > allBorrowers = borrowers.getAllBorrowes();
-	cout << "**************************[Borrowers Report]*****************************";
-	cout << endl << endl
-		<< setw(25) << byWhat
-		<< setw(0) << endl;
-
-	for (list <const Borrower*const >::const_iterator citer = allBorrowers.cbegin(); citer != allBorrowers.cend(); ++citer)
+	cout << "**************************[Borrowers Report]*****************************"<<endl<<endl;
+	for (list < Borrower*const >::const_iterator bor_citer = allBorrowers.cbegin(); bor_citer != allBorrowers.cend(); ++bor_citer)
 	{
-		if ((*citer)->hasBooks())
-		{
-			cout
-				<< setw(25) << ((*citer)->*getter)()
-				<< setw(0) << endl;
+		cout << "-------------------------------------------------------------------------" << endl;
+		(*bor_citer)->print();
+
+		cout << "borrowed book:" << endl;
+		list <const Book*const > borrowedBooks = (*bor_citer)->getBorrowedBooks();
+		for (list <const Book*const >::const_iterator book_citer = borrowedBooks.cbegin(); book_citer != borrowedBooks.cend(); ++book_citer){
+			(*book_citer)->print();
 		}
 	}
-	cout << endl;
-	cout << "*************************************************************************";
-	cout << endl << endl;
+	cout << "-------------------------------------------------------------------------" << endl;
+	cout <<endl<< "*************************************************************************"<<endl<<endl;
 }
 
 bool Library_Manager::updateBorrowerName(const unsigned int ID, const std::string &str){

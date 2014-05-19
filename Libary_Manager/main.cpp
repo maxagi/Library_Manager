@@ -271,9 +271,24 @@ int main(){
 
 		case 8:
 			cin.sync();
-			cout << "please enter by what would you like to see borrower status name, ID" << endl;
-			getline(cin, str1);
-			lib.reportOnAllBorrowers(str1);
+			cout << "0: report  by id" << endl;
+			cout << "1: report by name" << endl;
+			cin >> c1;
+			switch (c1) {
+			case 0:
+				cin.sync();
+				cout << "enter id:";
+				getline(cin, str1);
+				lib.reportOnAllBorrowers(str1, "id");
+				break;
+
+			case 1:
+				cin.sync();
+				cout << "enter name:";
+				getline(cin, str1);
+				lib.reportOnAllBorrowers(str1, "name");
+				break;
+			}
 			break;
 
 		case 9:
