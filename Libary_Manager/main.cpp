@@ -9,8 +9,8 @@ static void printBooks(std::list< Book*const > bookList){
 		(*citer++)->print();
 }
 
-static void printBorrowers(std::list<Borrower* const >  borrowers) {
-	std::list<Borrower* const>::iterator citer = borrowers.begin();
+static void printBorrowers(std::list< Borrower* const >  borrowers) {
+	std::list< Borrower* const>::iterator citer = borrowers.begin();
 	while (citer != borrowers.cend())
 		(*citer++)->print();
 }
@@ -30,13 +30,13 @@ int main(){
 
 	while (cont){
 		cout << "\n";
-		cout << " Library system " << endl<<endl
+		cout << " Library system " << endl << endl
 			<< " 0: add a new book to the library" << endl
 			<< " 1: remove a book" << endl
 			<< " 2: Update a book" << endl
 			<< " 3: Search for a book" << endl
 			<< " 4: Report on books" << endl
-			<<endl
+			<< endl
 			<< " 5: Add borrower record" << endl
 			<< " 6: Search borrower record " << endl
 			<< " 7: Update borrower record " << endl
@@ -44,7 +44,7 @@ int main(){
 			<< endl
 			<< " 9: borrow book" << endl
 			<< " 10: return book" << endl
-			<< " Enter your choice (or 'q' to quit) : ";
+			<< " Enter your choice (or '11' to quit) : "<<endl;
 		cin >> c;
 
 
@@ -113,7 +113,7 @@ int main(){
 				cout << "please enter the title of the book" << endl;
 				getline(cin, str1);
 				books = lib.findBook_ByTitle(str1);
-				cout << "Search results:" << endl;
+				cout << "Search results:" << endl << endl;
 				printBooks(books);
 				break;
 
@@ -130,7 +130,7 @@ int main(){
 				cout << "please enter the ISBN of the book" << endl;
 				cin >> long1;
 				Book*const book = lib.findBook_ByISBN(long1);
-				cout << "Search results:" << endl;
+				cout << "Search results:" << endl << endl;
 				book->print();
 				break;
 			}
@@ -153,7 +153,7 @@ int main(){
 				cin.sync();
 				cout << "enter title:";
 				getline(cin, str1);
-				lib.reportBooksStatus(str1,"title");
+				lib.reportBooksStatus(str1, "title");
 				break;
 			}
 			break;
@@ -193,30 +193,11 @@ int main(){
 			cout << "please enter borrower ID" << endl;
 			cin >> int1;
 
-			cout << "0: update borrower name" << endl;
-			cout << "1: borrow book" << endl;
-			cout << "2: return book" << endl;
-			cin >> c1;
-
-			switch (c1) {
-			case 0:
-				cin.sync();
-				cout << "please enter borrower new name" << endl;
-				getline(cin, str1);
-				if (!lib.updateBorrowerName(int1, str1))
-					cout << "Error: there isn't a borrower with the entered ID" << endl;
-				break;
-			case 1:
-				cout << "please enter book ISBN" << endl;
-				cin >> long1;
-				lib.borrowBook(long1, int1);
-				break;
-			case 2:
-				cout << "please enter book ISBN" << endl;
-				cin >> long1;
-				lib.returnBook(long1, int1);
-				break;
-			}
+			cin.sync();
+			cout << "please enter borrower new name" << endl;
+			getline(cin, str1);
+			if (!lib.updateBorrowerName(int1, str1))
+				cout << "Error: there isn't a borrower with the entered ID" << endl;
 			break;
 
 		case 8:

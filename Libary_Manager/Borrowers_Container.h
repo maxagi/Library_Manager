@@ -14,14 +14,19 @@ public:
 	~Borrowers_Container(){}
 	Borrowers_Container(){}
 
-	bool	addBorrower(const Borrower & borrower);
-	bool 	removeBorrower(const Borrower & borrower){ return borrowers.erase(borrower.getId()) == 1; }
+	bool							addBorrower(const Borrower & borrower);
+	bool 							removeBorrower(const Borrower & borrower){ return borrowers.erase(borrower.getId()) == 1; }
 
 	Borrower*const 					findByID(const unsigned int id);
+	const Borrower*const 			findByID(const unsigned int id)const ;
+
 	std::list<Borrower*const>		findByName(const std::string name);
+	std::list<const Borrower*const>	findByName(const std::string name)const;
+
 	std::list<const Borrower*const>	getAllBorrowes()const ;
 
 private:
+
 	Borrowers_Container(const Borrowers_Container & other);
 	Borrowers_Container & operator=(const Borrowers_Container & other);
 

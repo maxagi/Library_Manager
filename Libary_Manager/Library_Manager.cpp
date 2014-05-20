@@ -114,8 +114,8 @@ bool Library_Manager::removeBook(const long &ISBN, const unsigned int &howMany){
 }
 
 
-void Library_Manager::reportBooksStatus(const string& title_or_isbn, const string &byWhat) {
-	list< Book*const > booksList;
+void Library_Manager::reportBooksStatus(const string& title_or_isbn, const string &byWhat)const {
+	list<const Book*const > booksList;
 
 	//populate booksList according to byWhat param
 	if (byWhat == "isbn"){
@@ -124,19 +124,19 @@ void Library_Manager::reportBooksStatus(const string& title_or_isbn, const strin
 		unsigned long isbn = std::strtol(title_or_isbn.c_str(), &pEnd, 10);
 
 		//find book by isbn and add it to booksList
-		Book* book = findBook_ByISBN(isbn);
+		const Book* book = books.findByISBN(isbn);
 		if (book == NULL) return;
 		booksList.push_back(book);
 	}
 
 	else if (byWhat == "title"){
-		booksList = findBook_ByTitle(title_or_isbn);
+		booksList = books.findByTitle(title_or_isbn);
 	}
 	else return;
 
 	//iterate over booksList and print each book's details:
 	cout << "****************************[Books Report]*******************************" << endl;
-	for (list< Book*const >::const_iterator book_citer = booksList.cbegin(); book_citer != booksList.cend();++book_citer)
+	for (list<const Book*const >::const_iterator book_citer = booksList.cbegin(); book_citer != booksList.cend(); ++book_citer)
 	{
 		cout << "-------------------------------------------------------------------------" << endl;
 		(*book_citer)->print();
@@ -161,8 +161,8 @@ bool Library_Manager::removeBorrower(const long &id){
 }
 
 
-void Library_Manager::reportOnAllBorrowers(const string& id_or_name,const string &byWhat) {
-	list < Borrower*const > allBorrowers;
+void Library_Manager::reportOnAllBorrowers(const string& id_or_name, const string &byWhat)const {
+	list <const Borrower*const > allBorrowers;
 
 	//populate allBorrowers according to byWhat param
 	if (byWhat == "id"){
@@ -170,33 +170,33 @@ void Library_Manager::reportOnAllBorrowers(const string& id_or_name,const string
 		unsigned int id;
 		istringstream ss(id_or_name);
 		ss >> id;
-		Borrower *b = findBorrower_ById(id);
+		const Borrower *b = borrowers.findByID(id);
 		if (b == NULL) return;
 		//add found borrower to allBorrowers
 		allBorrowers.push_back(b);
 	}
 
 	else if (byWhat == "name"){
-		allBorrowers = findBorrower_ByName(id_or_name);
+		allBorrowers = borrowers.findByName(id_or_name);
 	}
 	else return;
 
 	//iterate over allBorrowers and print each borrower's details:
-	cout << "**************************[Borrowers Report]*****************************"<<endl<<endl;
-	for (list < Borrower*const >::const_iterator bor_citer = allBorrowers.cbegin(); bor_citer != allBorrowers.cend(); ++bor_citer)
+	cout << "**************************[Borrowers Report]*****************************" << endl << endl;
+	for (list <const Borrower*const >::const_iterator bor_citer = allBorrowers.cbegin(); bor_citer != allBorrowers.cend(); ++bor_citer)
 	{
 		cout << "-------------------------------------------------------------------------" << endl;
 		(*bor_citer)->print();
 
 		//print borrower's borrowed books list :
-		cout << "list borrowed books:" << endl<<endl;
+		cout << "list borrowed books:" << endl << endl;
 		list <const Book*const > borrowedBooks = (*bor_citer)->getBorrowedBooks();
 		for (list <const Book*const >::const_iterator book_citer = borrowedBooks.cbegin(); book_citer != borrowedBooks.cend(); ++book_citer){
 			(*book_citer)->print();
 		}
 	}
 	cout << "-------------------------------------------------------------------------" << endl;
-	cout <<endl<< "*************************************************************************"<<endl<<endl;
+	cout << endl << "*************************************************************************" << endl << endl;
 }
 
 bool Library_Manager::updateBorrowerName(const unsigned int ID, const std::string &str){

@@ -6,47 +6,70 @@ typedef map<unsigned long, Book>::const_iterator	books_citer;
 
 
 
-bool Books_Container::addBook(const Book  book){
+bool Books_Container::addBook(const Book book){
 	return (books.insert(std::pair<unsigned long, Book>(book.getISBN(), book))).second;
 }
 
-std::list< Book*const > Books_Container::findBookByString( const string text, const string type){
-	list< Book*const> results;
-	books_iter iter = books.begin();
+//fills lst or const_lst  (depending on which is null) with all books that their param matches text
+static void findBookByString(const std::map<unsigned long, Book> &books ,const std::string text, const std::string param,
+	std::list< Book*const > *const lst, std::list<const Book*const > *const const_lst){
 
-	while (iter != books.end())
+	books_citer iter = books.begin();
+	while (iter != books.cend())
 	{
 
-		if (type == "title"){
+		if (param == "title"){
 			if (iter->second.getTitle() == text)
-				results.push_back(&iter->second);
+				lst == NULL ? const_lst->push_back(&iter->second) : lst->push_back(const_cast<Book*>(&iter->second));
 		}
 
-		if (type == "author"){
+		if (param == "author"){
 			if (iter->second.getAuthor() == text)
-				results.push_back(&iter->second);
+				lst == NULL ? const_lst->push_back(&iter->second) : lst->push_back(const_cast<Book*>(&iter->second));
 		}
 		iter++;
 	}
-	return results;
 }
 
 
-Book* const   Books_Container::findByISBN(const unsigned long isbn)		 {
+Book* const Books_Container::findByISBN(const unsigned long isbn)	{
 	books_iter iter = books.find(isbn);
+	return iter == books.end() ? 0 : &iter->second;
+}
+const Book* const Books_Container::findByISBN(const unsigned long isbn)const	{
+	books_citer iter = books.find(isbn);
 	return iter == books.cend() ? 0 : &iter->second;
 }
 
 
+
+
 std::list< Book*const >	Books_Container::findByTitle(const std::string title) {
-	std::list< Book*const > tmp =  findBookByString(title, "title");
+	std::list< Book*const > tmp;
+	findBookByString(books,title, "title", &tmp,NULL);
+	return tmp;
+}
+std::list<const Book*const >	Books_Container::findByTitle(const std::string title)const {
+	std::list<const Book*const > tmp;
+	findBookByString(books,title, "title", NULL,&tmp);
 	return tmp;
 }
 
 
+
+
 std::list< Book*const >	Books_Container::findByAuthor(const std::string author) {
-	return findBookByString( author, "author");
+	std::list< Book*const > tmp;
+	 findBookByString(books,author, "author",&tmp,NULL);
+	 return tmp;
 }
+std::list<const Book*const >	Books_Container::findByAuthor(const std::string author)const {
+	std::list<const Book*const > tmp;
+	findBookByString(books,author, "author", NULL,&tmp);
+	return tmp;
+}
+
+
 
 std::list<const Book*const >	Books_Container::getAllBooks()const {
 	std::list<const Book*const> result;
